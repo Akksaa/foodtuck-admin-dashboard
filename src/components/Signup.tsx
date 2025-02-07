@@ -29,10 +29,12 @@ function Signup() {
         },
         body: JSON.stringify(formData)
        });
+       setLoading(false)
        
        if (!res.ok) {
         throw new Error('Signup failed');
        }
+       
        
 
       if (res.status == 409) {
