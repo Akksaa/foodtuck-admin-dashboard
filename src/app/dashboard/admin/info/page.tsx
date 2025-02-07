@@ -124,7 +124,7 @@ export default function ProfilePage() {
             <div>
               <LogoutButton userId={userData.id} />
               <div>
-                <Link href={"./dashboard"}>
+                <Link href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard`}>
                   <button className="mt-2 w-full bg-white openSans text-primYellow py-3 px-6 rounded-md font-semibold flex items-center justify-center space-x-2 border-primYellow border-[1px] hover:border-none  hover:bg-primYellow hover:text-white transition-colors">
                     <HomeIcon size={20} />
                     <span>Continue to Dashboard</span>

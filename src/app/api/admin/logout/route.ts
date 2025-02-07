@@ -14,6 +14,7 @@ export async function DELETE(request:NextRequest) {
     
         await db.delete(userTable).where(eq(userTable.id, userId));
         cookies().delete("user_id");
+        cookies().delete("role")
         
         const response = NextResponse.json({
             message: "Logged Out successfully!",
