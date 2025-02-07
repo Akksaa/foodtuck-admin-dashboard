@@ -32,7 +32,6 @@ export async function DELETE(request: NextRequest) {
     }
 
     await db.delete(userTable).where(eq(userTable.id, userId));
-    cookies().delete("user_id");
 
     const response = NextResponse.json({
       message: "User Deleted successfully!",
