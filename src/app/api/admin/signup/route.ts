@@ -1,4 +1,4 @@
-import { db, userTable } from "@/lib/drizzle"; 
+import { db, userTable } from "@/lib/drizzle";
 import { NextResponse, NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 import bcryptjs from "bcryptjs";
@@ -8,10 +8,10 @@ import { cookies } from "next/headers";
 export const POST = async (request: NextRequest) => {
   const req = await request.json();
   const { username, email, password } = req;
-  
+
   const uid = uuid();
-  cookies().set("user_id", uid)
- 
+  cookies().set("user_id", uid);
+
   const user = await db
     .select()
     .from(userTable)
@@ -24,32 +24,34 @@ export const POST = async (request: NextRequest) => {
     );
   }
 
- 
   const salt = await bcryptjs.genSalt(10);
   const hashedPassword = await bcryptjs.hash(password, salt);
 
   try {
-   
     const res = await db
       .insert(userTable)
       .values({
-        id: cookies().get('user_id')?.value as string,
+        id: cookies().get("user_id")?.value as string,
         username: username,
         email: email,
         password: hashedPassword,
-        role: email === 'admin@gmail.com' ? 'admin' : 'user', 
+        role: email === "admin@gmail.com" ? "admin" : "user",
         created: new Date(),
       })
       .returning();
-    
-      console.log('response from api/signup', res)
+
+    console.log("response from api/signup", res);
+    if (res[0].role == "admin") {
+      cookies().set("role", "admin");
+    } else {
+      cookies().set("role", "user");
+    }
 
     return NextResponse.json({
       message: "User Registered Successfully!",
       data: res,
     });
   } catch (error) {
-    
     return NextResponse.json(
       {
         success: false,

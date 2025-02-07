@@ -30,7 +30,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const res = await axios.get("/api/admin/info");
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/info`);
         setUserData(res.data.data[0]);
         setLoading(false);
         console.log("user data", res.data.data[0]);

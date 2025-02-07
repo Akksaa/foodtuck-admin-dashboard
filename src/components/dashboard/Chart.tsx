@@ -15,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Order {
   orderDate: string;
-  paymentDetails: { totalAmount: number };
+  paymentDetails: { totalAmount: number } | null;  // Updated to allow null
 }
 
 interface RevenueData {
@@ -27,7 +27,9 @@ const transformOrdersToRevenueData = (orders: Order[]): RevenueData[] => {
   const revenueMap = orders.reduce(
     (acc, order) => {
       const date = order.orderDate.split("T")[0];
-      acc[date] = (acc[date] || 0) + order?.paymentDetails?.totalAmount;
+      // Default to 0 if paymentDetails or totalAmount is null/undefined
+      const amount = order?.paymentDetails?.totalAmount ?? 0;
+      acc[date] = (acc[date] || 0) + amount;
       return acc;
     },
     {} as Record<string, number>
