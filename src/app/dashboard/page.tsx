@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, Package, ShoppingCart, Users } from "lucide-react";
 import React from "react";
 import Loading from "@/components/dashboard/Loading";
-import { Order } from "@/types/orders";
 
 export default function DashboardPage() {
 
@@ -53,9 +52,9 @@ export default function DashboardPage() {
         currency: "USD",
       });
 
-      console.log(totalAvenue);
+      console.log(totalRevenue);
 
-      setTotalAvenue(totalAvenue);
+      setTotalAvenue(totalRevenue);
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
