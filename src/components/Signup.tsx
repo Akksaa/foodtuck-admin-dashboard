@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { CiLock, CiMail, CiUser } from "react-icons/ci";
 import { useToast } from "@/hooks/use-toast";
@@ -9,7 +8,6 @@ import Loading from "@/components/dashboard/Loading";
 
 function Signup() {
   const { toast } = useToast();
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [formData, setFormData] = useState({
@@ -36,7 +34,6 @@ function Signup() {
         throw new Error('Signup failed');
        }
        
-       const data = await res.json();
 
       if (res.status == 409) {
         toast({
@@ -45,7 +42,6 @@ function Signup() {
           description: "User already exists",
         });
       }
-      console.log("Signup success:", data.data);
       
 
     } catch (error: unknown) {
@@ -54,11 +50,7 @@ function Signup() {
 
       if (error instanceof Error) {
         console.log("Signup failed:", error.message);
-        toast({
-          variant: "destructive",
-          title: "Foodtuck",
-          description: `Sign Up Failed, error: ${error.message}`,
-        });
+       
       } else {
         console.log("Signup failed with unknown error");
         toast({
