@@ -1,7 +1,6 @@
 import { db, userTable } from "@/lib/drizzle";
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
-import { cookies } from "next/headers";
 
 export async function GET() {
   const users = await db.select().from(userTable);
