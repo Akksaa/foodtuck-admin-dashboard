@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
   }
 
-  if (!isPublicPath && role == "user") {
+  if (isPublicPath && role == "user") {
     return NextResponse.redirect(new URL('/', request.nextUrl))
   }
     

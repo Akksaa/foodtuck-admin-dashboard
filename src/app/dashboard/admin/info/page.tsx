@@ -161,7 +161,7 @@ export default function ProfilePage() {
                 </button>
 
                 <button
-                  onClick={() => (window.location.href = "/signup")}
+                  onClick={() => (window.location.href = "/")}
                   className="w-full bg-white text-primYellow border-2 border-primYellow py-3 px-6 rounded-xl font-semibold hover:bg-yellow-50 transition-colors"
                 >
                   Create Account

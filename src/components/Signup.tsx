@@ -46,7 +46,7 @@ function Signup() {
         });
       }
       console.log("Signup success:", data.data);
-      router.push("/dashboard");
+      
 
     } catch (error: unknown) {
 
