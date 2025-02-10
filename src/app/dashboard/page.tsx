@@ -5,14 +5,12 @@ import Chart from "@/components/dashboard/Chart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, Package, ShoppingCart, Users } from "lucide-react";
 import React from "react";
-import Loading from "@/components/dashboard/Loading";
 
 export default function DashboardPage() {
 
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [totalAvenue, setTotalAvenue] = useState("$0.00");
 
   useEffect(() => {
@@ -55,13 +53,10 @@ export default function DashboardPage() {
       console.log(totalRevenue);
 
       setTotalAvenue(totalRevenue);
-      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
-      setIsLoading(false);
     }
   };
-  if (isLoading) return <Loading />;
 
   return (
     <>
@@ -71,7 +66,7 @@ export default function DashboardPage() {
         </h1>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="hover:shadow-primYellow hover:shadow-sm transition-colors group">
             <CardHeader className="flex flex-row items-center justify-between pb-2 ">
               <CardTitle className="text-sm font-medium">

@@ -40,13 +40,18 @@ export const POST = async (request: NextRequest) => {
       })
       .returning();
 
-    console.log("response from api/signup", res);
     if (res[0].role == "admin") {
       cookies().set("role", "admin");
     } else {
       cookies().set("role", "user");
     }
 
+    if (cookies().get("role")?.value == "user") {
+      return NextResponse.json({
+        message: 'This is restricted area. Admins only!'},
+      {status:403}
+    )
+    }
     return NextResponse.json({
       message: "User Registered Successfully!",
       data: res,

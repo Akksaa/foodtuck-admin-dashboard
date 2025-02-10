@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { GrUserAdmin } from "react-icons/gr";import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { CiLock, CiMail, CiUser } from "react-icons/ci";
 import { useToast } from "@/hooks/use-toast";
@@ -35,6 +35,13 @@ function Signup() {
         throw new Error('Signup failed');
        }
        
+       if (res.status == 403) {
+        toast({
+          variant: "destructive",
+          title: "Foodtuck",
+          description: "This is restricted area. Admins only!"
+        });
+      }
        
 
       if (res.status == 409) {
@@ -81,10 +88,10 @@ function Signup() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex justify-center items-center min-h-screen bg-white sm:py-6 lg:py-12">
+        <div className="flex justify-center items-center sm:min-h-screen bg-white sm:py-6 lg:py-12">
           <div className="bg-white w-[424px] p-6 h-[624px] shadow-lg">
-            <h2 className="openSans text-[20px] leading-[26px] text-black">
-              Sign up!
+            <h2 className="flex items-center justify-center">
+              <GrUserAdmin size={86} className="text-primYellow text-center"/>
             </h2>
 
             <form className="space-y-4 py-4">
@@ -159,13 +166,12 @@ function Signup() {
                 </button>
               </div>
               <div className="text-xs text-center justify-center flex ">
-                <p>Already have an Account? </p>
-                <Link
-                  href={"./login"}
+                <p>Want to Sign up? Enter this Email: </p>
+                <p
                   className="text-primYellow ml-2 underline"
                 >
-                  Login
-                </Link>
+                  admin@gmail.com
+                </p>
               </div>
             </form>
           </div>

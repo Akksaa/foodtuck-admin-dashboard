@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import {useRouter} from 'next/navigation'
 import LogoutButton from "@/components/dashboard/LogoutButton";
 import Loading from "@/components/dashboard/Loading";
 import React from "react";
@@ -19,6 +20,7 @@ import {
 import Link from "next/link";
 
 export default function ProfilePage() {
+  const router = useRouter();
   const [userData, setUserData] = useState({
     id: "",
     username: "",
@@ -151,17 +153,9 @@ export default function ProfilePage() {
                 account yet, you can create one for free.
               </p>
 
-              <div className="space-y-4 w-full openSans">
+              <div className=" w-full openSans">
                 <button
-                  onClick={() => (window.location.href = "/login")}
-                  className="w-full bg-primYellow text-white py-3 px-6 rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-amber-400 transition-colors"
-                >
-                  <span>Sign In</span>
-                  <ArrowRight size={20} />
-                </button>
-
-                <button
-                  onClick={() => (window.location.href = "/")}
+                  onClick={() => router.push("/signup")}
                   className="w-full bg-white text-primYellow border-2 border-primYellow py-3 px-6 rounded-xl font-semibold hover:bg-yellow-50 transition-colors"
                 >
                   Create Account

@@ -6,11 +6,19 @@ import { NextResponse } from "next/server";
 export async function GET() {
 
     const userId =  cookies().get('user_id')?.value as string;
+    const isAdmin = cookies().get('role')?.value as string;
 
     const user = await db
       .select()
       .from(userTable)
       .where(eq(userTable.id, userId!));
+
+      if (user[0].role !== isAdmin) {
+        return NextResponse.json({
+          message: 'This is restricted area. Admins only!'},
+        {status:403}
+        )
+      }
     
     if (!user) {
       return NextResponse.json(
