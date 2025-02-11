@@ -4,17 +4,17 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
-  const isAdmin = path === "/signup" || path === '/';
-  const isPublicPath = path === "/dashboard" || path === "admin/info";
+  const isPublicPath = path === "/signup" || path === '/';
+  const isProtectedcPath = path === "/dashboard" || path === "admin/info";
 
   const role = request.cookies.get("role")?.value || "";
   const uid = request.cookies.get("user_id")?.value || "";
 
-  if (isAdmin && role == "admin" && uid) {
+  if (isPublicPath && role == "admin" && uid) {
     return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
   }
 
-  if (isAdmin && uid && role == "user") {
+  if ( isProtectedcPath || isPublicPath && uid && role == "user") {
     return NextResponse.redirect(new URL("/notAdmin", request.nextUrl));
   }
 }

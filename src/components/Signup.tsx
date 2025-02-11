@@ -42,6 +42,7 @@ function Signup() {
           title: "Foodtuck",
           description: "This is restricted area. Admins only!",
         });
+        router.push("/notAdmin");
       }
 
       if (res.status == 409) {
