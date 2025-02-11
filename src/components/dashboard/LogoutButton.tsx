@@ -7,55 +7,55 @@ import { LogOut } from "lucide-react";
 import Loading from "./Loading";
 
 const LogoutButton = ({ userId }: { userId: string }) => {
-const {toast} = useToast();
+  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogout = async () => {
     setLoading(true);
 
-    if (!userId) return toast({
+    if (!userId)
+      return toast({
         variant: "destructive",
         title: "Foodtuck",
         description: "User not found!",
       });
 
-    ;
-
     try {
-        toast({
-            variant: "default",
-            title: "Foodtuck",
-            description: "Admin Logging out!",
-          });
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/logout`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }),
+      toast({
+        variant: "default",
+        title: "Foodtuck",
+        description: "Admin Logging out!",
       });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/logout`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId }),
+        }
+      );
 
       const data = await res.json();
 
-
       if (!res.ok) throw new Error(data.error);
 
-      
       router.push("/");
     } catch (error) {
-        toast({
-            variant: "destructive",
-            title: "Foodtuck",
-            description: "Failed to log out!",
-          });
+      toast({
+        variant: "destructive",
+        title: "Foodtuck",
+        description: "Failed to log out!",
+      });
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
 
- if (loading) {
-    <Loading/>
- }
+  if (loading) {
+    <Loading />;
+  }
 
   return (
     <button

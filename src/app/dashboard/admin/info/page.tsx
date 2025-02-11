@@ -7,7 +7,6 @@ import Loading from "@/components/dashboard/Loading";
 import React from "react";
 import moment from "moment";
 import {
-  ArrowRight,
   Bell,
   Calendar,
   Edit,

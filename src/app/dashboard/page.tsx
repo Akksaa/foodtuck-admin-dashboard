@@ -5,9 +5,10 @@ import Chart from "@/components/dashboard/Chart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, Package, ShoppingCart, Users } from "lucide-react";
 import React from "react";
+import Loading from "@/components/dashboard/Loading";
 
 export default function DashboardPage() {
-
+  const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -35,16 +36,17 @@ export default function DashboardPage() {
       const ordersData = await ordersRes.json();
       const orders = ordersData.data;
 
-      console.log("total amount array",orders[39]);
+      console.log("total amount array", orders[39]);
       setOrders(orders || []);
 
-
       const totalRevenueSum = orders.reduce(
-        (sum: number, order: { paymentDetails: { totalAmount: number } | null }) =>
-          sum + (order?.paymentDetails?.totalAmount ?? 0),
+        (
+          sum: number,
+          order: { paymentDetails: { totalAmount: number } | null }
+        ) => sum + (order?.paymentDetails?.totalAmount ?? 0),
         0
       );
-      
+
       const totalRevenue = totalRevenueSum.toLocaleString("en-US", {
         style: "currency",
         currency: "USD",
@@ -55,8 +57,12 @@ export default function DashboardPage() {
       setTotalAvenue(totalRevenue);
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
+      setLoading(false);
+
     }
+    setLoading(false);
   };
+  if (loading) return <Loading />;
 
   return (
     <>

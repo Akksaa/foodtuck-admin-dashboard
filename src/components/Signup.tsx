@@ -1,12 +1,14 @@
 "use client";
 
-import { GrUserAdmin } from "react-icons/gr";import Link from "next/link";
+import { GrUserAdmin } from "react-icons/gr";
 import React, { useEffect, useState } from "react";
 import { CiLock, CiMail, CiUser } from "react-icons/ci";
 import { useToast } from "@/hooks/use-toast";
 import Loading from "@/components/dashboard/Loading";
+import { useRouter } from "next/navigation";
 
 function Signup() {
+  const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -22,44 +24,50 @@ function Signup() {
     try {
       setLoading(true);
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/signup`, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData)
-       });
-       setLoading(false)
-       
-       if (!res.ok) {
-        throw new Error('Signup failed');
-       }
-       
-       if (res.status == 403) {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      setLoading(false);
+
+      if (res.status == 403) {
         toast({
           variant: "destructive",
           title: "Foodtuck",
-          description: "This is restricted area. Admins only!"
+          description: "This is restricted area. Admins only!",
         });
       }
-       
 
       if (res.status == 409) {
+        console.log("condition matched");
         toast({
           variant: "destructive",
           title: "Foodtuck",
-          description: "User already exists",
+          description: "User already exists!",
         });
       }
-      
+      if (!res.ok) {
+        throw new Error("Signup failed");
+      }
 
+      toast({
+        variant: "default",
+        title: "Foodtuck",
+        description: "Logged in! Welcome Admin.",
+      });
+
+      router.push("/dashboard");
     } catch (error: unknown) {
-
       setLoading(false);
 
       if (error instanceof Error) {
         console.log("Signup failed:", error.message);
-       
       } else {
         console.log("Signup failed with unknown error");
         toast({
@@ -91,7 +99,7 @@ function Signup() {
         <div className="flex justify-center items-center sm:min-h-screen bg-white sm:py-6 lg:py-12">
           <div className="bg-white w-[424px] p-6 h-[624px] shadow-lg">
             <h2 className="flex items-center justify-center">
-              <GrUserAdmin size={86} className="text-primYellow text-center"/>
+              <GrUserAdmin size={86} className="text-primYellow text-center" />
             </h2>
 
             <form className="space-y-4 py-4">
@@ -143,14 +151,9 @@ function Signup() {
                   className="pl-10 block mt-1 w-full placeholder:text-zinc-700 border-gray-200 border-2 text-xs outline-none px-3 py-2 "
                 />
               </div>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="rememberMe"
-                  id="check"
-                  className=""
-                />
-                <p className="text-[16px]">Remember me?</p>
+              <div className="text-xs text-center justify-center flex ">
+                <p>Want to Sign up? Enter this Email: </p>
+                <p className="text-gray-500 ml-1">admin@gmail.com</p>
               </div>
               <div className="">
                 <button
@@ -165,14 +168,10 @@ function Signup() {
                   )}
                 </button>
               </div>
-              <div className="text-xs text-center justify-center flex ">
-                <p>Want to Sign up? Enter this Email: </p>
-                <p
-                  className="text-primYellow ml-2 underline"
-                >
-                  admin@gmail.com
-                </p>
-              </div>
+
+              <p className="text-xs text-gray-800">
+                Don&apos;t Forget to log out before closing the site, Thanks!
+              </p>
             </form>
           </div>
         </div>

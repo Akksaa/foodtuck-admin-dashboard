@@ -10,7 +10,7 @@ const AdminAccessDenied = () => {
 <AccessDeniedPage 
   title="Admin Access Required" 
   message="Only administrators can view this section." 
-  onGoBack={() => router.push('/dashboard')} 
+  onGoBack={() => router.push('/')} 
 />
   )
 }

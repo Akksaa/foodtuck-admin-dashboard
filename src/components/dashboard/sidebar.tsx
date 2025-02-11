@@ -1,25 +1,24 @@
-import Link from "next/link"
-import { 
-  Home, 
-  Package, 
-  Users, 
-  ShoppingCart 
-} from "lucide-react"
+import Link from "next/link";
+import { Home, Package, Users, ShoppingCart } from "lucide-react";
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: Home },
-  { name: 'Orders', href: '/dashboard/orders', icon: ShoppingCart },
-  { name: 'Products', href: '/dashboard/products', icon: Package },
-  { name: 'Customers', href: '/dashboard/customers', icon: Users },
-]
+  { name: "Dashboard", href: "/dashboard", icon: Home },
+  { name: "Orders", href: "/dashboard/orders", icon: ShoppingCart },
+  { name: "Products", href: "/dashboard/products", icon: Package },
+  { name: "Customers", href: "/dashboard/customers", icon: Users },
+];
 
 export function Sidebar() {
   return (
     <div className="lg:w-64 w-52 fixed bg-black text-white border-primYellow border-r h-screen p-4">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold">Food<span className="text-primYellow">Tuck</span></h1>
+        <Link href={"/"}>
+          <h1 className="text-2xl font-bold">
+            Food<span className="text-primYellow">Tuck</span>
+          </h1>
+        </Link>
       </div>
-      
+
       <nav className="space-y-6">
         {navigation.map((item) => (
           <Link
@@ -33,7 +32,7 @@ export function Sidebar() {
         ))}
       </nav>
     </div>
-  )
+  );
 }
 
 // import Link from 'next/link';
@@ -51,22 +50,22 @@ export function Sidebar() {
 //       <div className="p-4 mb-8">
 //         <h1 className="text-2xl font-bold">Food <span className="text-primaryYellow">Tuck</span></h1>
 //       </div>
-      
+
 //       <nav className="space-y-2 px-4">
 //         {navigation.map((item) => (
-//           <Link 
-//             key={item.name} 
-//             href={item.href} 
+//           <Link
+//             key={item.name}
+//             href={item.href}
 //             className="flex items-center gap-3 p-2 hover:bg-gray-800 rounded-lg transition"
 //           >
 //             <span className="text-primaryYellow w-5 h-5">{item.icon}</span>
 //             <span>{item.name}</span>
 //           </Link>
 //         ))}
-        
+
 //         <div className="absolute bottom-0 left-0 right-0 p-4">
-//           <Link 
-//             href="/logout" 
+//           <Link
+//             href="/logout"
 //             className="flex items-center gap-3 p-2 hover:bg-red-800 rounded-lg transition"
 //           >
 //             <LogOut className="text-red-500 w-5 h-5" />
